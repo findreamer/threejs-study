@@ -1,0 +1,25 @@
+{
+  "name": "threejs-study",
+  "version": "1.0.0",
+  "description": "a three.js study project",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/findreamer/threejs-study.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/findreamer/threejs-study/issues"
+  },
+  "homepage": "https://github.com/findreamer/threejs-study#readme",
+  "devDependencies": {
+    "vite": "^4.0.4"
+  },
+  "dependencies": {
+    "three.js": "^0.77.1"
+  }
+}

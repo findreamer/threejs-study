@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ChapB001</title>
+    <script src="ThreeJS/three.js"></script>
+    <script src="ThreeJS/jquery.js"></script>
+  </head>
+  <body>
+    <center id="myContainer"></center>
+  </body>
+  <script>
+    //  创建渲染器
+    var render = new THREE.WebGLRenderer();
+    var myWidth = 420;
+    var myHeight = 320;
+    render.setSize(myWidth, myHeight);
+
+    $('#myContainer').append(render.domElement);
+
+    // 创建场景
+    var myScene = new THREE.Scene();
+
+    // 创建点光源
+    var myLight = new THREE.PointLight('red');
+    myLight.position.set(400, 800, 300);
+    myScene.add(myLight);
+
+    // 创建相机
+    var k = myWidth / myHeight;
+    var s = 120;
+    var myCamera = new THREE.OrthographicCamera(-s * k, s * k, s, -s, 1, 1000);
+    myCamera.position.set(400, 300, 200);
+    myCamera.lookAt(myScene.position);
+
+    // 绘制立方体
+    var myGeometry = new THREE.BoxGeometry(100, 100, 100);
+    var myMaterial = new THREE.MeshLambertMaterial({ color: 'oxffbff00' });
+    var myMesh = new THREE.Mesh(myGeometry, myMaterial);
+
+    myScene.add(myMesh);
+
+    render.render(myScene, myCamera);
+  </script>
+</html>
