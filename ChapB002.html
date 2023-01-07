@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>002.使用正交照相机绘制多个立方体</title>
+    <script src="ThreeJS/three.js"></script>
+    <script src="ThreeJS/jquery.js"></script>
+  </head>
+  <body>
+    <center id="myContainer"></center>
+  </body>
+  <script>
+    // 创建渲染器
+    const render = new THREE.WebGLRenderer({ antialias: true });
+    console.log(render);
+    render.setSize(window.innerWidth, window.innerHeight);
+    render.setClearColor('white', 1.0);
+    $('#myContainer').append(render.domElement);
+
+    const myScene = new THREE.Scene();
+    // 创建正交照相机
+    const myWidth = window.innerWidth;
+    const myHeight = window.innerHeight;
+    const k = myWidth / myHeight;
+    const s = 24;
+    const myCamera = new THREE.OrthographicCamera(
+      -s * k,
+      s * k,
+      s,
+      -s,
+      1,
+      1000
+    );
+    myCamera.position.set(-1.66, 2.21, 18.1);
+    myCamera.lookAt(myScene.position);
+
+    // 绘制一个立方体
+    const myGeometry1 = new THREE.BoxGeometry(16, 16, 16);
+    const myMaterial1 = new THREE.MeshNormalMaterial();
+    const myMesh1 = new THREE.Mesh(myGeometry1, myMaterial1);
+    myMesh1.translateX(-14);
+    myScene.add(myMesh1);
+
+    // 绘制第二个立方体
+    const myGeometry2 = new THREE.BoxGeometry(16, 16, 16);
+    const myMaterial2 = new THREE.MeshNormalMaterial();
+    const myMesh2 = new THREE.Mesh(myGeometry2, myMaterial2);
+    myMesh2.translateX(14);
+    myScene.add(myMesh2);
+
+    render.render(myScene, myCamera);
+  </script>
+</html>
