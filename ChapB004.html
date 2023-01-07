@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+    <script src="ThreeJS/three.js"></script>
+    <script src="ThreeJS/jquery.js"></script>
+  </head>
+  <body>
+    <center id="myContainer"></center>
+  </body>
+  <script>
+    const render = new THREE.WebGLRenderer({ antialias: true });
+    render.setSize(window.innerWidth, window.innerHeight);
+    render.setClearColor('white', 1.0);
+
+    $('#myContainer').append(render.domElement);
+
+    const myScene = new THREE.Scene();
+
+    // 创建透视照相机
+    const myCamera = new THREE.PerspectiveCamera(
+      45,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000
+    );
+    myCamera.position.set(40.06, 20.92, 42.68);
+    myCamera.lookAt(new THREE.Vector3(0, 0, 0));
+
+    // 创建一个立方体
+    const myGeometry1 = new THREE.BoxGeometry(16, 16, 16);
+    const myMaterial1 = new THREE.MeshNormalMaterial();
+    const myMesh1 = new THREE.Mesh(myGeometry1, myMaterial1);
+    myMesh1.translateX(-40);
+    myScene.add(myMesh1);
+
+    const myGeometry2 = new THREE.BoxGeometry(16, 16, 16);
+    const myMaterial2 = new THREE.MeshNormalMaterial();
+    const myMesh2 = new THREE.Mesh(myGeometry2, myMaterial2);
+    myMesh2.translateX(-10);
+    myScene.add(myMesh2);
+
+    const myGeometry3 = new THREE.BoxGeometry(16, 16, 16);
+    const myMaterial3 = new THREE.MeshNormalMaterial();
+    const myMesh3 = new THREE.Mesh(myGeometry3, myMaterial3);
+    myMesh3.translateX(20);
+    myScene.add(myMesh3);
+
+    render.render(myScene, myCamera);
+  </script>
+</html>
