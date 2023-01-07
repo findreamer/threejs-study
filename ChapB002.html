@@ -24,7 +24,9 @@
     const myWidth = window.innerWidth;
     const myHeight = window.innerHeight;
     const k = myWidth / myHeight;
-    const s = 24;
+    const s = 30;
+
+    // THREE.OrthographicCamera(left,right,top,bottom,neear,far)
     const myCamera = new THREE.OrthographicCamera(
       -s * k,
       s * k,

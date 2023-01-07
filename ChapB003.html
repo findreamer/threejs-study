@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>003.使用CameraHelper绘制正交照相机</title>
+    <script src="ThreeJS/three.js"></script>
+    <script src="ThreeJS/jquery.js"></script>
+  </head>
+  <body>
+    <center id="myContainer"></center>
+  </body>
+  <script>
+    const myAspect = window.innerWidth / window.innerHeight;
+    const myFrustumSize = 700;
+
+    // 创建渲染器
+    const render = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    render.setSize(window.innerWidth, window.innerHeight);
+    render.setClearColor('white', 1.0);
+    $('#myContainer').append(render.domElement);
+
+    // 创建场景
+    const myScene = new THREE.Scene();
+
+    // 创建一个相机，观察辅助相机
+    const myCamera = new THREE.PerspectiveCamera(45, myAspect, 1, 5000);
+    myCamera.position.z = 2500;
+
+    // 创建辅助正交照相机
+    const myOrthographicCamera = new THREE.OrthographicCamera(
+      (0.5 * myFrustumSize * myAspect) / -2,
+      (0.5 * myFrustumSize * myAspect) / 2,
+      myFrustumSize / 2,
+      myFrustumSize / -2,
+      150,
+      1000
+    );
+    const myOrthographicCameraHelper = new THREE.CameraHelper(
+      myOrthographicCamera
+    );
+    myScene.add(myOrthographicCameraHelper);
+
+    // 绘制圆球
+    const mySphereMesh = new THREE.Mesh(
+      new THREE.SphereBufferGeometry(200, 16, 8),
+      new THREE.MeshBasicMaterial({ color: 'green', wireframe: true })
+    );
+    myScene.add(mySphereMesh);
+
+    animate();
+
+    function animate() {
+      requestAnimationFrame(animate);
+      const r = Date.now() * 0.0005;
+      mySphereMesh.position.x = myFrustumSize * Math.cos(r);
+      mySphereMesh.position.z = myFrustumSize * Math.sin(r);
+      mySphereMesh.position.y = myFrustumSize * Math.sin(r);
+
+      myOrthographicCamera.lookAt(mySphereMesh.position);
+
+      render.render(myScene, myCamera);
+    }
+  </script>
+</html>
